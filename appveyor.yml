@@ -23,7 +23,7 @@ build_script:
 clone_depth: 1
 
 test_script:
-  - cmd: dotnet test dotnet test Assertions/Assertions.UnitTests
+  - cmd: dotnet test Assertions/Assertions.UnitTests
 
 artifacts:
 - path: dist
