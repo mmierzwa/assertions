@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq.Expressions;
 
 namespace Assertions
 {
@@ -14,5 +15,9 @@ namespace Assertions
 
         public ObjectStructureAssertion<T> Properties()
             => new ObjectStructureAssertion<T>(_subject);
+
+        public ObjectStructureAssertion<T> PropertiesWithout(params Expression<Func<T, object>>[] excluded)
+            => new ObjectStructureAssertion<T>(_subject)
+                .Without(excluded);
     }
 }

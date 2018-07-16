@@ -1,64 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
+using Assertions.Utilities;
 
 namespace Assertions
 {
     public class ObjectStructureAssertion<T> where T : class
     {
         private readonly T _subject;
+        private IEnumerable<string> _excludedPropertiesNames = new List<string>();
 
         public ObjectStructureAssertion(T subject)
         {
             _subject = subject ?? throw new ArgumentNullException(nameof(subject));
         }
 
+        internal ObjectStructureAssertion<T> Without(Expression<Func<T, object>>[] excluded)
+        {
+            _excludedPropertiesNames = excluded.Select(TypeUtils.GetPropertyName);
+            return this;
+        }
+
         public void Eq<TSecond>(TSecond obj) where TSecond : class
         {
-            var subjectProperties = GetPropertiesWithValues(typeof(T), _subject);
-            var comparedProperties = GetPropertiesWithValues(typeof(TSecond), obj);
+            var subjectProperties = TypeUtils.GetPropertiesWithValues(typeof(T), _subject, _excludedPropertiesNames);
+            var comparedProperties = TypeUtils.GetPropertiesWithValues(typeof(TSecond), obj, _excludedPropertiesNames);
 
             var propertiesMatch = subjectProperties.All(subjectProperty =>
                 comparedProperties.Any(subjectProperty.Equals));
             
             if (!propertiesMatch)
-                throw new ExpectationFailedExceptin("Subject object properties does not match compared object");
-        }
-
-        private static IEnumerable<PropertyValue> GetPropertiesWithValues(Type type, object obj)
-            => type
-                .GetProperties()
-                .Select(property => new PropertyValue(property.Name, property.GetValue(obj)));
-        
-        private struct PropertyValue : IEquatable<PropertyValue>
-        {
-            private readonly string _name;
-            private readonly object _value;
-
-            public PropertyValue(string name, object value)
-            {
-                _name = name;
-                _value = value;
-            }
-
-            public bool Equals(PropertyValue other)
-            {
-                return string.Equals(_name, other._name) && Equals(_value, other._value);
-            }
-
-            public override bool Equals(object obj)
-            {
-                if (ReferenceEquals(null, obj)) return false;
-                return obj is PropertyValue value && Equals(value);
-            }
-
-            public override int GetHashCode()
-            {
-                unchecked
-                {
-                    return ((_name != null ? _name.GetHashCode() : 0) * 397) ^ (_value != null ? _value.GetHashCode() : 0);
-                }
-            }
+                throw new ExpectationFailedException("Subject object properties does not match compared object");
         }
     }
 }

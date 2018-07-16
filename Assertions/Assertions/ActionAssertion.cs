@@ -22,7 +22,7 @@ namespace Assertions
                 return;
             }
 
-            throw new ExpectationFailedExceptin("Expected method invocation to throw an exception, but none was thrown");
+            throw new ExpectationFailedException("Expected method invocation to throw an exception, but none was thrown");
         }
     }
 }

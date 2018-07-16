@@ -15,13 +15,13 @@ namespace Assertions
         public void Eq(T arg)
         {
             if (!(_subject.Equals(arg) ^ _isNegated))
-                throw new ExpectationFailedExceptin($"{_subject} is different than {arg}");
+                throw new ExpectationFailedException($"{_subject} is different than {arg}");
         }
 
         public void IsGreater(T arg)
         {
             if (_subject.CompareTo(arg) < 0 ^ _isNegated)
-                throw new ExpectationFailedExceptin($"{_subject} is not greater than {arg}");
+                throw new ExpectationFailedException($"{_subject} is not greater than {arg}");
         }
 
         public NumberAssertion<T> Not()
