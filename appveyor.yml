@@ -2,18 +2,29 @@ version: 1.0.{build}
 image: Visual Studio 2017
 build:
   verbosity: minimal
+
+configuration:
+  - Debug
+platform:
+  - Any CPU
 branches:
   only:
   - master
+
 init:
   - cmd: git config --global core.autocrlf true
+
 before_build:
   - cmd: dotnet --version
-  - cmd: dotnet restore {APPVEYOR_BUILD_FOLDER}/Assertions/Assertions.csproj --verbosity m
+  - cmd: dotnet restore Assertions\Assertions.sln --verbosity m
 build_script:
-  - cmd: dotnet publish {APPVEYOR_BUILD_FOLDER}/Assertions/Assertions.csproj
+  - cmd: dotnet publish Assertions --output %appveyor_build_folder%\dist
+
 clone_depth: 1
+
 test_script:
-  - cmd: dotnet restore {APPVEYOR_BUILD_FOLDER}/Assertions.UnitTests/Assertions.UnitTests.csproj --verbosity m
-  - cmd: dotnet dotnet vstest {APPVEYOR_BUILD_FOLDER}/Assertions.UnitTests/bin/Debug/netcoreapp2.0/Assertions.UnitTests.dll
+  - cmd: dotnet test dotnet test Assertions/Assertions.UnitTests
+
+artifacts:
+- path: dist
 deploy: off
