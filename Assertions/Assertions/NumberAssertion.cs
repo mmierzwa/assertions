@@ -2,12 +2,12 @@
 
 namespace Assertions
 {
-    public class NumberAssertions<T> where T : struct, IComparable
+    public class NumberAssertion<T> where T : struct, IComparable
     {
         private T _subject;
         private bool _isNegated;
 
-        public NumberAssertions(T subject)
+        public NumberAssertion(T subject)
         {
             _subject = subject;
         }
@@ -24,7 +24,7 @@ namespace Assertions
                 throw new ExpectationFailedExceptin($"{_subject} is not greater than {arg}");
         }
 
-        public NumberAssertions<T> Not()
+        public NumberAssertion<T> Not()
         {
             _isNegated = !_isNegated;
             return this;

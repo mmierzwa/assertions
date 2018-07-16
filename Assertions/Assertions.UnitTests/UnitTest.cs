@@ -45,20 +45,20 @@ namespace Assertions.UnitTests
             10.Expect().Not().Eq(10);
         }
         
-        /*
         [TestMethod]
         public void Test_Raise_Error()
         {
-            (new Action(() => { throw new Exception(); })).Expect().RaiseError();
+            new Action(() => throw new Exception()).Expect().RaiseError();
         }
 
         [TestMethod]
         [ExpectedException(typeof(ExpectationFailedExceptin))]
         public void Test_Raise_Error_Fails()
         {
-            (new Action(() => FizBar.SampleMethod())).Expect().RaiseError();
+            new Action(() => FizBar.SampleMethod()).Expect().RaiseError();
         }
 
+        /*
         [TestMethod]
         public void Test_Properties()
         {
