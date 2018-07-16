@@ -9,11 +9,11 @@ init:
   - cmd: git config --global core.autocrlf true
 before_build:
   - cmd: dotnet --version
-  - cmd: dotnet restore ./Assertions/Assertions.csproj --verbosity m
+  - cmd: dotnet restore {APPVEYOR_BUILD_FOLDER}/Assertions/Assertions.csproj --verbosity m
 build_script:
-  - cmd: dotnet publish ./Assertions/Assertions.csproj
+  - cmd: dotnet publish {APPVEYOR_BUILD_FOLDER}/Assertions/Assertions.csproj
 clone_depth: 1
 test_script:
-  - cmd: dotnet restore ./Assertions.UnitTests/Assertions.UnitTests.csproj --verbosity m
-  - cmd: dotnet dotnet vstest Assertions.UnitTests/bin/Debug/netcoreapp2.0/Assertions.UnitTests.dll
+  - cmd: dotnet restore {APPVEYOR_BUILD_FOLDER}/Assertions.UnitTests/Assertions.UnitTests.csproj --verbosity m
+  - cmd: dotnet dotnet vstest {APPVEYOR_BUILD_FOLDER}/Assertions.UnitTests/bin/Debug/netcoreapp2.0/Assertions.UnitTests.dll
 deploy: off
