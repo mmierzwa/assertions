@@ -1,0 +1,19 @@
+version: 1.0.{build}
+image: Visual Studio 2017
+build:
+  verbosity: minimal
+branches:
+  only:
+  - master
+init:
+  - cmd: git config --global core.autocrlf true
+before_build:
+  - cmd: dotnet --version
+  - cmd: dotnet restore ./Assertions/Assertions.csproj --verbosity m
+build_script:
+  - cmd: dotnet publish ./Assertions/Assertions.csproj
+clone_depth: 1
+test_script:
+  - cmd: dotnet restore ./Assertions.UnitTests/Assertions.UnitTests.csproj --verbosity m
+  - cmd: dotnet dotnet vstest Assertions.UnitTests/bin/Debug/netcoreapp2.0/Assertions.UnitTests.dll
+deploy: off
