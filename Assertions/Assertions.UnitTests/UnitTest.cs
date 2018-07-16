@@ -31,8 +31,7 @@ namespace Assertions.UnitTests
         {
             (-10).Expect().IsGreater(4);
         }
-
-        /*
+        
         [TestMethod]
         public void Test_NotEq()
         {
@@ -46,6 +45,7 @@ namespace Assertions.UnitTests
             10.Expect().Not().Eq(10);
         }
         
+        /*
         [TestMethod]
         public void Test_Raise_Error()
         {
