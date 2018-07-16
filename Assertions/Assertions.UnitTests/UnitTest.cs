@@ -19,7 +19,6 @@ namespace Assertions.UnitTests
             6.Expect().Eq(5);
         }
 
-        /*
         [TestMethod]
         public void Test_Greater()
         {
@@ -33,6 +32,7 @@ namespace Assertions.UnitTests
             (-10).Expect().IsGreater(4);
         }
 
+        /*
         [TestMethod]
         public void Test_NotEq()
         {

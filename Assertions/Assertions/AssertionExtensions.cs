@@ -1,8 +1,10 @@
-﻿namespace Assertions
+﻿using System;
+
+namespace Assertions
 {
     public static class AssertionExtensions
     {
-        public static NumberAssertions<T> Expect<T>(this T subject) where T : struct
+        public static NumberAssertions<T> Expect<T>(this T subject) where T : struct, IComparable
             => new NumberAssertions<T>(subject);
     }
 }

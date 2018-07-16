@@ -2,15 +2,12 @@
 
 namespace Assertions
 {
-    public class NumberAssertions<T> where T : struct
+    public class NumberAssertions<T> where T : struct, IComparable
     {
         private T _subject;
 
         public NumberAssertions(T subject)
         {
-            if (!(subject is IComparable))
-                throw new ArgumentException("Parameter is not an numeric type", nameof(subject));
-            
             _subject = subject;
         }
 
@@ -18,6 +15,12 @@ namespace Assertions
         {
             if (!_subject.Equals(arg))
                 throw new ExpectationFailedExceptin($"{_subject} is different than {arg}");
+        }
+
+        public void IsGreater(T arg)
+        {
+            if (_subject.CompareTo(arg) < 0)
+                throw new ExpectationFailedExceptin($"{_subject} is not greater than {arg}");
         }
     }
 }
