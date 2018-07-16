@@ -58,12 +58,11 @@ namespace Assertions.UnitTests
             new Action(() => FizBar.SampleMethod()).Expect().RaiseError();
         }
 
-        /*
         [TestMethod]
         public void Test_Properties()
         {
-            var tested = new FizBar() { Bar = "Bar", Fiz = String.Empty };
-            var expected = new {Bar = "Bar", Fiz = String.Empty};
+            var tested = new FizBar { Bar = "Bar", Fiz = string.Empty };
+            var expected = new {Bar = "Bar", Fiz = string.Empty};
             tested.Expect().Properties().Eq(expected);
         }
 
@@ -71,11 +70,12 @@ namespace Assertions.UnitTests
         [ExpectedException(typeof(ExpectationFailedExceptin))]
         public void Test_Properties_Fails()
         {
-            var tested = new FizBar() {Bar = "Bar", Fiz = String.Empty};
-            var expected = new {Bar = "Bar2", Fiz = String.Empty};
+            var tested = new FizBar {Bar = "Bar", Fiz = string.Empty};
+            var expected = new {Bar = "Bar2", Fiz = string.Empty};
             tested.Expect().Properties().Eq(expected);
         }
 
+        /*
         [TestMethod]
         public void Test_PropertiesWithout()
         {
