@@ -19,6 +19,7 @@ namespace Assertions.UnitTests
             6.Expect().Eq(5);
         }
 
+        /*
         [TestMethod]
         public void Test_Greater()
         {
@@ -91,6 +92,7 @@ namespace Assertions.UnitTests
             var expected = new { Bar = "Bar2", Fiz = "Fiz2" };
             tested.Expect().PropertiesWithout(x => x.Fiz).Eq(expected);
         }
+        */
     }
 
     public class FizBar
